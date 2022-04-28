@@ -1,0 +1,20 @@
+{
+    "name": "nopow-link/nll_php",
+    "version": "0.0.0",
+    "description": "Library for php Nopow-Link plugins",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nopow-Link",
+            "email": "nopow.link@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require-dev": {
+        "phpunit/phpunit": "^5.5"
+    },
+    "scripts": {
+        "phpunit": "vendor/bin/phpunit"
+    }
+}
