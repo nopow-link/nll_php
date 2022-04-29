@@ -11,34 +11,48 @@ class ApiSettings
 
 	protected $key;
 
+	protected $timeout;
+
 	protected $url;
 
 	public function __construct()
 	{
-		$this->cache	= new ApiCache()
-		$this->url		= "https://www.nopow-link.com";
-		$this->key		= $this->cache->key_retrieve()
+		$this->cache	= ApiCache::getInstance();
+		$this->key		= $this->cache->keyRetrieve();
+		$this->timeout	= '2.0';
+		$this->url		= "http://127.0.0.1:8000/";
 	}
 
-	public function get_key()
+	public function getTimeout()
+	{
+		return $this->timeout;
+	}
+
+	public function getKey()
 	{
 		return $this->key;
 	}
 
-	public function get_url()
+	public function getUrl()
 	{
 		return $this->url;
 	}
 
-	protected function set_url(string $url)
+	protected function setUrl(string $url)
 	{
 		$this->url = $url;
 		return $this;
 	}
 
-	protected function set_key(string $key)
+	protected function setKey(string $key)
 	{
 		$this->key = $key;
+		return $this;
+	}
+
+	public function setTimeout(string $timeout)
+	{
+		$this->time	= $timeout;
 		return $this;
 	}
 }
