@@ -72,7 +72,7 @@ class ApiCache
 
 		if ($cache->isHit())
 		{
-			$this->cache->deleteItem("api-key");
+			$this->cache->deleteItem($slug);
 			return True;
 		}
 		return False;

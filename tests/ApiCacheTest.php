@@ -32,7 +32,7 @@ class ApiCacheTest extends TestCase
 
 	public function testSlugCache()
 	{
-		$slug	= '/test';
+		$slug	= '/test/';
 		$cache	= ApiCache::getInstance();
 		$cache->linkDelete($slug);
 
