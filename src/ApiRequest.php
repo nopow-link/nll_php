@@ -11,6 +11,7 @@ use NllLib\ApiException;
 use NllLib\ApiSettings;
 use NllLib\ApiIdentifier;
 use NllLib\Exception\NllLibCertifyException;
+use NllLib\Exception\NllLibCollectException;
 use NllLib\Utils\Url;
 
 class ApiRequest
@@ -39,8 +40,29 @@ class ApiRequest
 				'GET',
 				ApiIdentifier::certify($key)
 				);
-			return $response;
+
+			var_dump($response);
+			return True;
 		}
 		catch (TransferException $e) {throw new NllLibCertifyException($e);}
+		return False;
+	}
+
+	public function collect($slug)
+	{
+		try
+		{
+			$key	=  $this->cache->keyRetrieve();
+			if (!$key)
+				return [];
+			$response = $this->client->request(
+				'GET',
+				ApiIdentifier::collect($key, $slug)
+				);
+
+			var_dump($response);
+			return $response;
+		}
+		catch (TransferException $e) {throw new NllLibCollectException($e);}
 	}
 }
