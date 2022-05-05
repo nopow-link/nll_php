@@ -3,6 +3,7 @@
 namespace NllLib;
 
 use \DateTime;
+use \DateInterval;
 
 use phpFastCache\CacheManager;
 use phpFastCache\Config\ConfigurationOption;
@@ -62,6 +63,37 @@ class ApiCache
 		$cache = $this->cache->getItem("api-key");
 
 		$cache->set($key)->expiresAt(new DateTime("@9999999999"));
+		$this->cache->save($cache);
+	}
+
+	public function linkDelete($slug)
+	{
+		$cache = $this->cache->getItem($slug);
+
+		if ($cache->isHit())
+		{
+			$this->cache->deleteItem("api-key");
+			return True;
+		}
+		return False;
+	}
+
+	public function linkRetrieve($slug)
+	{
+		$cache = $this->cache->getItem($slug);
+
+		if ($cache->isHit())
+			return $cache->get();
+		return Null;
+	}
+
+	public function linkSave($slug, $data)
+	{
+		$cache = $this->cache->getItem($slug);
+
+		$date	= new DateTime();
+		$date->add(new DateInterval('PT1H'));
+		$cache->set($data)->expiresAt($date);
 		$this->cache->save($cache);
 	}
 }
