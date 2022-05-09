@@ -19,7 +19,8 @@
     },
     "require": {
         "guzzlehttp/guzzle": "^7.4",
-        "phpfastcache/phpfastcache": "^5.0"
+        "phpfastcache/phpfastcache": "^5.0",
+        "duzun/hquery": "^3.0"
     },
     "autoload": {
         "psr-4": {
