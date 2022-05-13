@@ -28,7 +28,7 @@ class ApiRequest
 	**  will request the Nopow-Link API.
 	*/
 	public function __construct($handlerStack = Null) {
-		$this->settings	= new ApiSettings();
+		$this->settings	= ApiSettings::getInstance();
 		$this->cache	= ApiCache::getInstance();
 
 		if (!$handlerStack)

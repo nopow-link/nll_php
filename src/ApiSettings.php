@@ -2,19 +2,32 @@
 
 namespace NllLib;
 
-use NllLib\ApiCache;
+use NllLib\Utils\Path;
 
 class ApiSettings
 {
+	private static $INSTANCE	= null;
+
+	private static $CACHE_PATH	= "../cache";
 
 	protected $timeout;
 
 	protected $url;
 
-	public function __construct()
+	private function __construct()
 	{
-		$this->url		= "http://127.0.0.1:8000/";
-		$this->timeout	= '2.0';
+		$this->url				= "http://127.0.0.1:8000/";
+		$this->timeout			= '2.0';
+
+		$path = new Path(__FILE__);
+		$this->cache_folder		= $path->absolut(self::$CACHE_PATH);
+	}
+
+	public static function getInstance()
+	{
+		if (!self::$INSTANCE)
+			self::$INSTANCE = new ApiSettings();
+		return self::$INSTANCE;
 	}
 
 	public function getTimeout()
@@ -27,6 +40,11 @@ class ApiSettings
 		return $this->url;
 	}
 
+	public function getCacheFolder()
+	{
+		return $this->cache_folder;
+	}
+
 	public function setUrl(string $url)
 	{
 		$this->url = $url;
@@ -36,6 +54,12 @@ class ApiSettings
 	public function setTimeout(string $timeout)
 	{
 		$this->time	= $timeout;
+		return $this;
+	}
+
+	public function setCacheFolder(string $folder)
+	{
+		$this->cache_folder = $folder;
 		return $this;
 	}
 }

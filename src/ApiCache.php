@@ -8,7 +8,7 @@ use \DateInterval;
 use phpFastCache\CacheManager;
 use phpFastCache\Config\ConfigurationOption;
 
-use NllLib\Utils\Path;
+use NllLib\ApiSettings;
 
 class ApiCache
 {
@@ -17,16 +17,16 @@ class ApiCache
 
 	private static $DRIVER		= "Files";
 
-	private static $CACHE_PATH	= "../cache";
-
 	protected $cache;
+
+	protected $settings;
 
 	private function __construct()
 	{
-		$path = new Path(__FILE__);
+		$this->settings = ApiSettings::getInstance();
 		CacheManager::setDefaultConfig([
-			'path' => $path->absolut(self::$CACHE_PATH),
-			]);
+			'path' => $this->settings->getCacheFolder(),
+		]);
 		$this->cache = CacheManager::getInstance();
 	}
 

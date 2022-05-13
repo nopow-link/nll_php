@@ -2,8 +2,10 @@
 
 namespace NllLib\Tests;
 
-use NllLib\ApiCache;
 use PHPUnit\Framework\TestCase;
+
+use NllLib\ApiCache;
+use NllLib\ApiSettings;
 
 class ApiCacheTest extends TestCase
 {
