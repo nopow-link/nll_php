@@ -1,6 +1,6 @@
 {
     "name": "nopow-link/nll_php",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "description": "Library for php Nopow-Link plugins",
     "type": "library",
     "license": "MIT",
