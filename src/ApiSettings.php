@@ -27,7 +27,7 @@ class ApiSettings
 		return $this->url;
 	}
 
-	protected function setUrl(string $url)
+	public function setUrl(string $url)
 	{
 		$this->url = $url;
 		return $this;
