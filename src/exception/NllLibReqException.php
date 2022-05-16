@@ -27,7 +27,8 @@ class NllLibReqException extends Exception
 		if ($exception instanceof RequestException)
 		{
 			$response = $exception->getResponse();
-			$code = $response->getStatusCode();
+			if ($response)
+				$code = $response->getStatusCode();
 		}
 		$message = (array_key_exists($code, $this->ERRORS))
 			? $this->ERRORS[$code]
