@@ -78,7 +78,7 @@ class ApiRequest
 					'GET',
 					ApiIdentifier::collect($key, $slug)
 					);
-				$data = json_decode($response->getBody());
+				$data = json_decode($response->getBody(), true);
 				$this->cache->linkSave($slug, $data);
 			}
 			return $data;
