@@ -58,7 +58,7 @@ class ApiCache
 		return Null;
 	}
 
-	public function keySave($key, $delay = '')
+	public function keySave($key, $delay = Null)
 	{
 		$cache = $this->cache->getItem("api-key");
 
@@ -69,7 +69,9 @@ class ApiCache
 			$expire->add($delay);
 		}
 		else
-			$expire = new DateTime("@9999999999");
+		{
+			$expire = new DateTime("2037-01-01");
+		}
 		$cache->set($key)->expiresAt($expire);
 		$this->cache->save($cache);
 	}
