@@ -72,7 +72,7 @@ class ApiRequest
 			if (!$key)
 				return [];
 			$data = $this->cache->linkRetrieve($slug);
-			if (!$data)
+			if ($data === Null)
 			{
 				$response = $this->client->request(
 					'GET',

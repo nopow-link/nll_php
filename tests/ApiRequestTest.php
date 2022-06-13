@@ -108,7 +108,7 @@ class ApiRequestTest extends TestCase
 			]);
 	}
 
-	private function collectResponseHandlerStack()
+	private function collect0ResponseHandlerStack()
 	{
 		return new MockHandler([
 			new Response(
@@ -148,7 +148,7 @@ class ApiRequestTest extends TestCase
 
 		$requests		= new ApiRequest(
 			$handlerStack = HandlerStack::create(
-				$this->collectResponseHandlerStack()
+				$this->collect0ResponseHandlerStack()
 				));
 		$valid_key	 	= "valid_64763d626330a485fe2602a38e17a91fa376fd01ad";
 		$cache->keySave($valid_key);
@@ -189,6 +189,69 @@ class ApiRequestTest extends TestCase
 		}
 		$this->assertSame(
 			ApiRequestTest::JSON_COLLECT_0(),
+			json_encode($result)
+			);
+	}
+
+	public static function JSON_COLLECT_1()
+	{
+		return json_encode([]);
+	}
+
+	private function collect1ResponseHandlerStack()
+	{
+		return new MockHandler([
+			new Response(
+				200,
+				$headers	= ['Content-Type' => 'application/json'],
+				$body 		= ApiRequestTest::JSON_COLLECT_1()
+				),
+			new Response(
+				404,
+				$headers	= ['Content-Type' => 'application/json'],
+				$body		= ''
+				)
+			]);
+	}
+
+	public function testCollectRequestEmptyResponse()
+	{
+		$requests	= new ApiRequest();
+		$slug		= "/test/empty/response";
+
+		/*
+		** Clear cache after test.
+		*/
+		$cache			= ApiCache::getInstance();
+		$cache->keyDelete();
+		$cache->linkDelete($slug);
+
+
+
+		$requests		= new ApiRequest(
+			$handlerStack = HandlerStack::create(
+				$this->collect1ResponseHandlerStack()
+				));
+		$valid_key	 	= "valid_64763d626330a485fe2602a38e17a91fa376fd01ad";
+		$cache->keySave($valid_key);
+
+		/*
+		** This test validate that only one request is send to server even if no
+		** data has been send by the server. Should wait until one hour befor
+		** sending new request.
+		*/
+		try
+		{
+			$result		= $requests->collect($slug);
+			$result		= $requests->collect($slug);
+		}
+		catch (NllLibCollectException $e)
+		{
+			$result 	= False;
+		}
+
+		$this->assertSame(
+			ApiRequestTest::JSON_COLLECT_1(),
 			json_encode($result)
 			);
 	}

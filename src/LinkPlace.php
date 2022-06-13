@@ -12,8 +12,6 @@ class LinkPlace
 		$this->links = $links;
 		if (count($this->links) > 1)
 			uasort($this->links, [__CLASS__,'sortLinks']);
-
-		var_dump($this->links);
 	}
 
 	public static function sortLinks($link1, $link2)
