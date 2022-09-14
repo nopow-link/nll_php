@@ -58,7 +58,7 @@ class ApiRequestTest extends TestCase
 
 
 		$requests		= new ApiRequest(
-			$handlerStack = HandlerStack::create(
+			$__handlerStack = HandlerStack::create(
 				$this->certifyResponseHandlerStack()
 				));
 		$valid_key	 	= "valid_64763d626330a485fe2602a38e17a91fa376fd01ad";
@@ -147,7 +147,7 @@ class ApiRequestTest extends TestCase
 
 
 		$requests		= new ApiRequest(
-			$handlerStack = HandlerStack::create(
+			$__handlerStack = HandlerStack::create(
 				$this->collect0ResponseHandlerStack()
 				));
 		$valid_key	 	= "valid_64763d626330a485fe2602a38e17a91fa376fd01ad";
@@ -229,7 +229,7 @@ class ApiRequestTest extends TestCase
 
 
 		$requests		= new ApiRequest(
-			$handlerStack = HandlerStack::create(
+			$__handlerStack = HandlerStack::create(
 				$this->collect1ResponseHandlerStack()
 				));
 		$valid_key	 	= "valid_64763d626330a485fe2602a38e17a91fa376fd01ad";

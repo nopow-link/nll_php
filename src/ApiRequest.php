@@ -27,11 +27,12 @@ class ApiRequest
 	** The handler_stack is only for testing the library. Otherwise the client
 	**  will request the Nopow-Link API.
 	*/
-	public function __construct($handlerStack = Null) {
-		$this->settings	= ApiSettings::getInstance();
-		$this->cache	= ApiCache::getInstance();
+	public function __construct($__handlerStack = Null) {
+		$this->settings			= ApiSettings::getInstance();
+		$this->cache			= ApiCache::getInstance();
+		$this->__handlerStack	= $__handlerStack;
 
-		if (!$handlerStack)
+		if (!$this->__handlerStack)
 		{
 			$this->client	= new Client([
 				'base_uri'	=> $this->settings->getUrl(),
@@ -39,9 +40,7 @@ class ApiRequest
 				]);
 		}
 		else
-		{
-			$this->client	= new Client(['handler' => $handlerStack]);
-		}
+			$this->client	= new Client(['handler' => $this->__handlerStack]);
 	}
 
 	public function get_cache()
@@ -53,7 +52,16 @@ class ApiRequest
 	{
 		try
 		{
-			$this->client->request(
+			/*
+			** Le client GuzzleHTTP est immutable. Le timeout de sécurité à
+			** besoin d'être désactivé lors de la certification. Car le 
+			** processus peut être particulièrement long.
+			*/
+			if (!$this->__handlerStack)
+				$client = new Client(['base_uri' => $this->settings->getUrl()]);
+			else
+				$client = new Client(['handler' => $this->__handlerStack]);
+			$client->request(
 				'GET',
 				ApiIdentifier::certify($key)
 				);
