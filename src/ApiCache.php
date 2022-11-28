@@ -26,6 +26,7 @@ class ApiCache
 		$this->settings = ApiSettings::getInstance();
 		CacheManager::setDefaultConfig([
 			'path' => $this->settings->getCacheFolder(),
+			'ignoreSymfonyNotice'=> true
 		]);
 		$this->cache = CacheManager::getInstance();
 	}

@@ -16,7 +16,7 @@ class ApiSettings
 
 	private function __construct()
 	{
-		$this->url				= "http://127.0.0.1:8000/";
+		$this->url				= "https://nopow-link.com/";
 		$this->timeout			= '2.0';
 
 		$path = new Path(__FILE__);
